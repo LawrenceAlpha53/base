@@ -43,14 +43,21 @@ const WorkerServices = {
   },
 
   //finding all Workers
-  GettingAllWorker: async () => {
-    try {
-      const user = await Worker.findAll();
-      return user;
-    } catch (error) {
-      throw error;
-    }
-  },
+ // WorkerServices.js
+GettingAllWorker: async () => {
+  try {
+    const workers = await Worker.findAll();
+    
+    // Ensure we always return an array (even if empty)
+    return Array.isArray(workers) ? workers : [];
+  } catch (error) {
+    // Log error for debugging
+    console.error("Error fetching all workers:", error);
+    // Throw a custom error to controller
+    throw new Error("Failed to fetch workers from database");
+  }
+},
+
   //getting single user by full name
 
   GettingSinleUser: async (Fullname) => {

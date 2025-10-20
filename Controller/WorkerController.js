@@ -55,25 +55,33 @@ const WorkerController = {
 
   //Getting all workers
 
-  Allworkers: async (req, res, next) => {
-    try {
-      const workers = await WorkerServices.GettingAllWorker();
+// WorkerController.js
+Allworkers: async (req, res, next) => {
+  try {
+    const workers = await WorkerServices.GettingAllWorker();
 
-      if (workers !== 0) {
-        return res.status(201).json({
-          message: "All Workers Successfully Retrived",
-          data: workers,
-        });
-      } else {
-        return res.status(409).json({
-          message: "No Worker Retrived",
-          status: res.statusCode,
-        });
-      }
-    } catch (error) {
-      return next(error);
+    if (workers.length > 0) {
+      return res.status(200).json({
+        message: "All workers successfully retrieved",
+        data: workers
+      });
+    } else {
+      // No workers found
+      return res.status(200).json({
+        message: "No workers found",
+        data: []  // return empty array instead of null
+      });
     }
-  },
+  } catch (error) {
+    console.error("Controller error fetching workers:", error.message);
+
+    return res.status(500).json({
+      message: "Internal server error while fetching workers",
+      error: error.message
+    });
+  }
+},
+
 
   //getting Single User by name
 
