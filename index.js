@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { sequelize } = require('./models'); // Sequelize setup
-const workerRoutes = require('./routes/workers');
+const workerRoutes = require('');
 
 const app = express();
 
